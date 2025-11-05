@@ -1,4 +1,4 @@
-// ==================== 干净、可运行的 index.js ====================
+// ==================== 最终版 index.js ====================
 
 const express = require("express");
 const app = express();
@@ -178,7 +178,33 @@ trojan://${UUID}@${CFIP}:${CFPORT}?security=tls&sni=${ARGO_DOMAIN}&fp=firefox&ty
       }, 20000);
     }
 
-    // 9. 防休眠（每10分钟访问自己）
+    // 9. 防休眠 + 60秒后删除所有日志
+    const LOG_FILES = [bootLogPath, configPath];
+    const KEEP_ALIVE_LOGS = [];
+    const originalLog = console.log;
+    const originalWarn = console.warn;
+
+    console.log = function (...args) {
+      const msg = args.join(' ');
+      if (msg.includes('[Keep-Alive]')) {
+        const logFile = path.join(FILE_PATH, `alive_${Date.now()}.tmp`);
+        fs.writeFileSync(logFile, msg + '\n');
+        KEEP_ALIVE_LOGS.push(logFile);
+      }
+      originalLog.apply(console, args);
+    };
+
+    console.warn = function (...args) {
+      const msg = args.join(' ');
+      if (msg.includes('[Keep-Alive]')) {
+        const logFile = path.join(FILE_PATH, `alive_warn_${Date.now()}.tmp`);
+        fs.writeFileSync(logFile, msg + '\n');
+        KEEP_ALIVE_LOGS.push(logFile);
+      }
+      originalWarn.apply(console, args);
+    };
+
+    // 每10分钟访问自己（防休眠）
     setInterval(async () => {
       try {
         await axios.get(PROJECT_URL, { timeout: 10000 });
@@ -190,10 +216,16 @@ trojan://${UUID}@${CFIP}:${CFPORT}?security=tls&sni=${ARGO_DOMAIN}&fp=firefox&ty
 
     console.log(`节点就绪！订阅: ${PROJECT_URL}/${SUB_PATH}`);
 
-    // 10. 清理
+    // 60 秒后删除所有日志文件
     setTimeout(() => {
-      [bootLogPath, configPath].forEach(f => fs.existsSync(f) && fs.unlinkSync(f));
-    }, 90000);
+      [...LOG_FILES, ...KEEP_ALIVE_LOGS].forEach(file => {
+        if (fs.existsSync(file)) {
+          try { fs.unlinkSync(file); } catch (e) {}
+        }
+      });
+      console.log = originalLog;
+      console.warn = originalWarn;
+    }, 60000);
 
   } catch (e) {
     console.error('启动失败:', e.message);
