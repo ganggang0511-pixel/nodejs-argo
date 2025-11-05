@@ -1,15 +1,23 @@
-FROM node:alpine3.20
+# 使用轻量 Node.js 镜像
+FROM node:20-alpine
 
-WORKDIR /tmp
+# 设置工作目录
+WORKDIR /app
 
-COPY . .
+# 复制 package 文件
+COPY package.json ./
 
-EXPOSE 3000/tcp
+# 安装依赖
+RUN npm install --production
 
-RUN apk update && apk upgrade &&\
-    apk add --no-cache openssl curl gcompat iproute2 coreutils &&\
-    apk add --no-cache bash &&\
-    chmod +x index.js &&\
-    npm install
+# 复制代码
+COPY index.js ./
 
-CMD ["node", "index.js"]
+# 创建运行目录
+RUN mkdir -p /app/tmp
+
+# 暴露端口
+EXPOSE 3000
+
+# 启动命令
+CMD ["npm", "start"]
