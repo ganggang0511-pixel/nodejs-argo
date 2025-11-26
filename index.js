@@ -12,7 +12,7 @@ const execAsync = promisify(exec);
 
 // ==================== 所有配置已硬编码 ====================
 const UPLOAD_URL = '';
-const PROJECT_URL = 'https://surrounding-fawnia-sdadaaa-b924f948.koyeb.app';
+const PROJECT_URL = '';
 const AUTO_ACCESS = false;
 const FILE_PATH = './tmp';
 const SUB_PATH = 'feed';
@@ -23,12 +23,12 @@ const UUID = require('crypto').randomUUID();
 const NEZHA_SERVER = '';
 const NEZHA_PORT = '';
 const NEZHA_KEY = '';
-const ARGO_DOMAIN = 'koyebde.tjzsg.filegear-sg.me';
-const ARGO_AUTH = 'eyJhIjoiZDFlYThmNmI0NzFkMGFkMmYwMDdlZDE5MmZlYzk2ZjkiLCJ0IjoiODhlOGJhNjQtZjgzMC00NGJiLThiNjEtNTAzZjQ5MzYyMzNlIiwicyI6IlpXWTBaR1UzT1RrdE1HSXhOeTAwTlRSbUxXRmhaRGt0TW1JeE16azRZVFkwTnpRMSJ9';
+const ARGO_DOMAIN = 'ggsg.daiguangai1987.dpdns.org';
+const ARGO_AUTH = 'eyJhIjoiZDFlYThmNmI0NzFkMGFkMmYwMDdlZDE5MmZlYzk2ZjkiLCJ0IjoiMjcyN2ExNzAtYjcwNy00NmIxLWIyYzgtMDI1MjYwZWEyMDUyIiwicyI6IlpqbGtPRFU1T1RndFpqTTFNeTAwTlRjeUxUazRNVE10TWpZeU56TTRNV0kzTjJSaiJ9';
 const ARGO_PORT = 8001;
 const CFIP = '104.16.159.59';
 const CFPORT = 443;
-const NAME = 'TechNode';
+const NAME = 'railway';
 const BOT_TOKEN = '7711641304:AAFFdHkZN1grvvXNeghCim7c6QE5cb7Laho';
 const CHAT_ID = '6488187665';
 
