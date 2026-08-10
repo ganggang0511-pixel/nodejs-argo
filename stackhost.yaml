@@ -1,15 +1,11 @@
-zerops:
+stackhost:
   - setup: nodejsargo
     build:
       base: nodejs@22
       buildCommands:
         - npm install
       deployFiles:
-        - index.js
-        - index.html
-        - package.json
-        - package-lock.json
-        - node_modules
+        - .
       cache:
         - node_modules
     run:
