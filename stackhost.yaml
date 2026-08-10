@@ -1,4 +1,4 @@
-zerops:
+stackhost:
   - setup: nodejsargo
     build:
       base: alpine/nodejs@22
