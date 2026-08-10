@@ -1,5 +1,9 @@
-runtime: nodejs
+runtime:
+  name: nodejs
+  version: 20
+
 build:
   command: npm run build
+
 run:
   command: npm start
