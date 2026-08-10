@@ -1,4 +1,4 @@
-stackhost:
+zerops:
   - setup: nodejsargo
     build:
       base: nodejs@22
