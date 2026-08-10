@@ -1,16 +1,7 @@
-stackhost:
-  - setup: nodejsargo
-    build:
-      base: nodejs@22
-      buildCommands:
-        - npm install
-      deployFiles:
-        - .
-      cache:
-        - node_modules
-    run:
-      base: nodejs@22
-      ports:
-        - port: 3000
-          httpSupport: true
-      start: node index.js
+runtime:
+  image: node:18-alpine
+
+commands:
+  build:
+    - npm install
+  start: npm start
