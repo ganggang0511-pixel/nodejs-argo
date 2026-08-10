@@ -1,8 +1,6 @@
 runtime:
-  image: node:20-alpine # 指定基础镜像，例如 node:20-alpine, python:3.10-slim, golang:1.21 等
+  image: node:20-alpine # 根据你的项目更换，如 python:3.10-slim 等
 
-build:
-  command: npm run build # 构建命令，如果没有构建步骤可填 echo "No build required"
-
-run:
-  command: npm start # 启动命令
+commands:
+  build: npm run build  # 如果没有构建过程，可以写 echo "No build step"
+  start: npm start      # 启动服务的命令（注意：是 start 而不是 run）
