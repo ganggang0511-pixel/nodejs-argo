@@ -1,9 +1,8 @@
 runtime:
-  name: nodejs
-  version: 20
+  image: node:20-alpine # 指定基础镜像，例如 node:20-alpine, python:3.10-slim, golang:1.21 等
 
 build:
-  command: npm run build
+  command: npm run build # 构建命令，如果没有构建步骤可填 echo "No build required"
 
 run:
-  command: npm start
+  command: npm start # 启动命令
